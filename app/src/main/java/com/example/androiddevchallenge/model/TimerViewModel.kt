@@ -30,11 +30,17 @@ class TimerViewModel : ViewModel() {
     var animatorController = AnimatorController(this)
 
     fun updateMinute(minute: Int) {
+        if (counting){
+            return
+        }
         timeMinute = minute
         updateTotalTime()
     }
 
     fun updateSecond(second: Int) {
+        if (counting){
+            return
+        }
         if (second == 60) {
             timeMinute += 1
             timeSecond = 0

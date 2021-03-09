@@ -152,8 +152,7 @@ fun SecondValue(
     modifier: Modifier = Modifier
 ) {
     var value by remember { mutableStateOf(0) }
-    Box(
-        modifier = Modifier
+    Box(modifier = Modifier
             .size(50.dp)
             .clip(RoundedCornerShape(10.dp))
             .scrollable(
@@ -171,7 +170,7 @@ fun SecondValue(
                     value.toFloat()
                 })
             .background(Color.LightGray),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Text(
             text = formatTimeSecond(viewModel.timeLeft),
