@@ -23,13 +23,22 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.rememberScrollableState
 import androidx.compose.foundation.gestures.scrollable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -47,9 +56,15 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.androiddevchallenge.model.MAX_INPUT_VALUE
 import com.example.androiddevchallenge.model.MIN_INPUT_VALUE
 import com.example.androiddevchallenge.model.TimerViewModel
-import com.example.androiddevchallenge.ui.theme.*
+import com.example.androiddevchallenge.ui.theme.MyTheme
+import com.example.androiddevchallenge.ui.theme.black
+import com.example.androiddevchallenge.ui.theme.purple200
+import com.example.androiddevchallenge.ui.theme.purple100
+import com.example.androiddevchallenge.ui.theme.purple500
 import com.example.androiddevchallenge.utils.TimeFormatUtils.formatTimeMinute
 import com.example.androiddevchallenge.utils.TimeFormatUtils.formatTimeSecond
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,7 +91,6 @@ fun MyApp() {
             Timer(viewModel)
             Row(
                 modifier = Modifier
-                    .wrapContentSize()
                     .padding(15.dp)
             ) {
                 StartButton(viewModel = viewModel)
@@ -113,7 +127,6 @@ fun Timer(viewModel: TimerViewModel) {
 @Composable
 fun MinuteValue(
     viewModel: TimerViewModel,
-    modifier: Modifier = Modifier
 ) {
     var value by remember { mutableStateOf(0) }
     Box(
@@ -149,10 +162,10 @@ fun MinuteValue(
 @Composable
 fun SecondValue(
     viewModel: TimerViewModel,
-    modifier: Modifier = Modifier
 ) {
     var value by remember { mutableStateOf(0) }
-    Box(modifier = Modifier
+    Box(
+        modifier = Modifier
             .size(50.dp)
             .clip(RoundedCornerShape(10.dp))
             .scrollable(
@@ -186,7 +199,6 @@ fun ProgressCircle(viewModel: TimerViewModel) {
     Box(contentAlignment = Alignment.Center) {
         Canvas(modifier = Modifier.size(size), onDraw = {
             val sweepAngle = viewModel.status.sweepAngle()
-            val r = size.toPx() / 2
             val strokeWidth = 8.dp.toPx()
             drawCircle(
                 color = Color.LightGray,
